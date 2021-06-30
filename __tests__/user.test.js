@@ -50,4 +50,28 @@ describe('demo routes', () => {
       profilePhotoUrl: 'picture'
     });
   });
+
+  it('verifies a user is logged in', async() => {
+    const agent = request.agent(app);
+    const user = await UserService.create({
+      username: 'clem',
+      password: 'password',
+      profilePhotoUrl: 'picture'
+    });
+    await agent.post('/api/v1/auth/login')
+      .send({
+        username: 'clem',
+        password: 'password'
+      });
+
+    const res = await agent.get('/api/v1/verify');
+    expect(res.body).toEqual({
+      id: user.id,
+      username: 'clem',
+      passwordHash: expect.any(String),
+      profilePhotoUrl: 'picture',
+      iat: expect.any(Number),
+      exp: expect.any(Number)
+    });
+  });
 });
