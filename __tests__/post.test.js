@@ -76,4 +76,18 @@ describe('demo routes', () => {
     expect(res.body).toEqual([post1, post2, post3]);
     
   });
+
+  it('gets a post by id', async() => {
+    const post = await Post.insert({
+      userId: user.id,
+      photoUrl: 'photo.jpg',
+      caption: 'anybody else feeling kind of weird?',
+      tags: ['breakfast', 'telephone pole', 'dysphoria']
+    });
+
+    const res = await agent
+      .get('/api/v1/posts/:id');
+
+    expect(res.body).toEqual(post);
+  });
 });
