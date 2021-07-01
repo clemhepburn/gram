@@ -86,7 +86,7 @@ describe('demo routes', () => {
     });
 
     const res = await agent
-      .get('/api/v1/posts/:id');
+      .get(`/api/v1/posts/${post.id}`);
 
     expect(res.body).toEqual(post);
   });
