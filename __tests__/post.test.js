@@ -102,7 +102,8 @@ describe('demo routes', () => {
     post.caption = 'something palatable and fun';
 
     const res = await agent
-      .patch(`/api/v1/posts/${post.id}`);
+      .patch(`/api/v1/posts/${post.id}`)
+      .send({ caption: 'something palatable and fun' });
 
     expect(res.body).toEqual(post);
   });
