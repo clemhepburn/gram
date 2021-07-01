@@ -90,4 +90,20 @@ describe('demo routes', () => {
 
     expect(res.body).toEqual(post);
   });
+
+  it('updates a post', async() => {
+    const post = await Post.insert({
+      userId: user.id,
+      photoUrl: 'pic.jpg',
+      caption: 'embarassing post',
+      tags: ['earnest sentiment', 'my real self']
+    });
+
+    post.caption = 'something palatable and fun';
+
+    const res = await agent
+      .patch(`/api/v1/posts/${post.id}`);
+
+    expect(res.body).toEqual(post);
+  });
 });
