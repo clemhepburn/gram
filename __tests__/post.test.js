@@ -123,4 +123,82 @@ describe('demo routes', () => {
 
     expect(res.body).toEqual(post);
   });
+
+  it('retrieves the 10 posts with the most comments', async() => {
+    const post1 = await Post.insert({
+      userId: user.id,
+      photoUrl: 'dsfjshdf',
+      caption: 'hi',
+      tags: ['milk', 'raven']
+    });
+
+    const post2 = await Post.insert({
+      userId: user.id,
+      photoUrl: 'dsfjshdfsdsf',
+      caption: 'hiii',
+      tags: ['thoughts', 'leaf']
+    });
+
+    const post3 = await Post.insert({
+      userId: user.id,
+      photoUrl: 'dsfjssdfsdhdf',
+      caption: 'hungry',
+      tags: ['dogs', 'heaven']
+    });
+
+    const post4 = await Post.insert({
+      userId: user.id,
+      photoUrl: 'ttttttthdf',
+      caption: 'the ol ranch',
+      tags: ['family', 'christmas']
+    });
+
+    const post5 = await Post.insert({
+      userId: user.id,
+      photoUrl: 'riueruw',
+      caption: 'mango',
+      tags: ['drupe', 'thoughtful']
+    });
+
+    const post6 = await Post.insert({
+      userId: user.id,
+      photoUrl: 'opoooooohdf',
+      caption: 'uh oh',
+      tags: ['smiling', 'huge']
+    });
+
+    const post7 = await Post.insert({
+      userId: user.id,
+      photoUrl: 'dsfsdfsjshdf',
+      caption: 'what now?',
+      tags: ['paris', 'syndrome']
+    });
+
+    const post8 = await Post.insert({
+      userId: user.id,
+      photoUrl: 'bbbb',
+      caption: 'rainy day',
+      tags: ['caffeine', 'construction']
+    });
+
+    const post9 = await Post.insert({
+      userId: user.id,
+      photoUrl: 'uuuuu',
+      caption: 'my new carafe',
+      tags: ['water drinker', 'alt lifestyle']
+    });
+
+    const post10 = await Post.insert({
+      userId: user.id,
+      photoUrl: 'ppp',
+      caption: 'what do you think guys?',
+      tags: ['new style', 'infinite being']
+    });
+
+    const res = await request(app)
+      .get('api/v1/posts/popular');
+
+    expect(res.bpdy).toEqual([post1, post2, post3, post4, post5, post6, post7, post8, post9, post10]);
+
+  });
 });
