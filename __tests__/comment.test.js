@@ -3,11 +3,12 @@ import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
 import UserService from '../lib/services/UserService.js';
-import { post } from 'superagent';
+import Post from '../lib/models/Post.js';
 
 describe('demo routes', () => {
 
   let user = {}; 
+  let post = {};
   let agent;
 
   beforeEach(async() => {
@@ -27,6 +28,14 @@ describe('demo routes', () => {
   });
 
   it('posts a comment to a post via POST', async() => {
+
+    post = await Post.insert({
+      userId: user.id,
+      photoUrl: 'pic.jpg',
+      caption: 'Here i am again',
+      tags: ['unending riddle', 'squelching', 'exponent']
+    });
+    
     const res = await agent
       .post('/api/v1/comments')
       .send({
